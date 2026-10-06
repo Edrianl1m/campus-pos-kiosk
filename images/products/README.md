@@ -2,14 +2,14 @@
 
 Put one photo per product in this folder, using **exactly** these file names:
 
-| Product | File name |
-|---|---|
-| Coffee | `coffee.jpg` |
-| Sandwich | `sandwich.jpg` |
-| Soft Drink | `softdrink.jpg` |
-| Cookies | `cookies.jpg` |
-| Bottled Water | `water.jpg` |
-| Chocolate | `chocolate.jpg` |
+| Product       | File name       |
+| ------------- | --------------- |
+| Coffee        | `coffee.png`    |
+| Sandwich      | `sandwich.png`  |
+| Soft Drink    | `soda.png`      |
+| Cookies       | `cookie.png`    |
+| Bottled Water | `water.png`     |
+| Chocolate     | `chocolate.png` |
 
 **Photo guidelines**
 
