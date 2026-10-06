@@ -2,10 +2,11 @@
   "use strict";
 
   /* =========================================================
-     DATA
-     Hard-coded product list. A small kiosk menu like this does
-     not need a database; prices live in one place.
+  DATA
+    Hard-coded product list. A small kiosk menu like this does
+  not need a database; prices live in one place.
      ========================================================= */
+  // Product photos live in images/products/<id>.jpg. If a photo is missing, the card shows its icon instead.
   const PRODUCTS = [
     {
       id: "coffee",
@@ -225,6 +226,51 @@
   };
 
   /* =========================================================
+PRODUCT PHOTOS
+Remembers which photos loaded so re-rendering the cart does not flash the icon again.
+     ========================================================= */
+  const photoOk = {};
+  function tileArt(p) {
+    return (
+      '<img class="product-photo" src="' +
+      p.image +
+      '" alt="" loading="lazy" decoding="async" data-photo="' +
+      p.id +
+      '">' +
+      ICON[p.icon]
+    );
+  }
+  function markPhotos(id) {
+    document
+      .querySelectorAll('img[data-photo="' + id + '"]')
+      .forEach((img) => img.parentElement.classList.add("has-photo"));
+  }
+  document.addEventListener(
+    "load",
+    (e) => {
+      const img = e.target;
+      if (img.dataset && img.dataset.photo) {
+        photoOk[img.dataset.photo] = true;
+        markPhotos(img.dataset.photo);
+      }
+    },
+    true,
+  );
+  document.addEventListener(
+    "error",
+    (e) => {
+      const img = e.target;
+      if (img.dataset && img.dataset.photo) {
+        photoOk[img.dataset.photo] = false;
+        img.remove();
+      } // keep the icon
+    },
+    true,
+  );
+  const photoClass = (p) => (photoOk[p.id] ? " has-photo" : "");
+  const productById = (id) => PRODUCTS.find((p) => p.id === id);
+
+  /* =========================================================
      DOM HELPERS
      ========================================================= */
   const $ = (id) => document.getElementById(id);
@@ -371,10 +417,9 @@
         "</button>",
     ).join("");
 
-    const visible = PRODUCTS.filter(
+    $("product-grid").innerHTML = PRODUCTS.filter(
       (p) => state.filter === "All" || p.category === state.filter,
-    );
-    $("product-grid").innerHTML = visible
+    )
       .map((p) => {
         const line = findLine(p.id);
         return (
@@ -406,6 +451,44 @@
       })
       .join("");
 
+    const visible = PRODUCTS.filter(
+      (p) => state.filter === "All" || p.category === state.filter,
+    );
+    $("product-grid").innerHTML = PRODUCTS.filter(
+      (p) => state.filter === "All" || p.category === state.filter,
+    )
+      .map((p) => {
+        const line = findLine(p.id);
+        return (
+          '<button class="product' +
+          (line ? " in-cart" : "") +
+          '" data-action="add" data-id="' +
+          p.id +
+          '" aria-label="Add ' +
+          esc(p.name) +
+          ", " +
+          money(p.price) +
+          (line ? ", " + line.qty + " in order" : "") +
+          '">' +
+          (line
+            ? '<span class="badge" aria-hidden="true">' + line.qty + "</span>"
+            : "") +
+          '<span class="product-tile tint-' +
+          p.tint +
+          photoClass(p) +
+          '">' +
+          tileArt(p) +
+          "</span>" +
+          '<span class="product-meta"><span class="product-name">' +
+          esc(p.name) +
+          '</span><span class="product-price">' +
+          money(p.price) +
+          "</span></span>" +
+          "</button>"
+        );
+      })
+      .join("");
+
     const count = itemCount(state.cart);
     $("cart-count").textContent = itemsLabel(count);
     $("cart-total").textContent = money(orderTotal(state.cart));
@@ -421,6 +504,7 @@
         "</span><strong>Your order is empty</strong><p>Tap a product on the left to add it to your order.</p></div>";
       return;
     }
+
     $("cart-list").innerHTML = state.cart
       .map(
         (l) =>
@@ -461,6 +545,55 @@
           "</div>",
       )
       .join("");
+
+    $("cart-list").innerHTML = state.cart
+      .map(
+        (l) =>
+          '<div class="cart-line">' +
+          '<div class="cart-line-top"><div class="cart-line-id">' +
+          '<span class="thumb tint-' +
+          productById(l.id).tint +
+          photoClass(productById(l.id)) +
+          '" aria-hidden="true">' +
+          tileArt(productById(l.id)) +
+          "</span>" +
+          '<div><div class="cart-line-name">' +
+          esc(l.name) +
+          '</div><div class="cart-line-each">' +
+          money(l.price) +
+          " each</div></div></div>" +
+          '<button class="remove-btn" data-action="remove" data-id="' +
+          l.id +
+          '" aria-label="Remove ' +
+          esc(l.name) +
+          '">' +
+          ICON.trash +
+          "</button></div>" +
+          '<div class="cart-line-bottom"><div class="stepper">' +
+          '<button class="qty-btn" data-action="dec" data-id="' +
+          l.id +
+          '" aria-label="Decrease ' +
+          esc(l.name) +
+          '">' +
+          ICON.minus +
+          "</button>" +
+          '<span class="qty-val" aria-label="Quantity">' +
+          l.qty +
+          "</span>" +
+          '<button class="qty-btn plus" data-action="inc" data-id="' +
+          l.id +
+          '" aria-label="Increase ' +
+          esc(l.name) +
+          '">' +
+          ICON.plus +
+          "</button>" +
+          '</div><span class="line-sub">' +
+          money(lineSubtotal(l)) +
+          "</span></div>" +
+          "</div>",
+      )
+      .join("");
+    feature / dnsc - theme - UI;
   }
   RENDER.order = renderOrder;
 

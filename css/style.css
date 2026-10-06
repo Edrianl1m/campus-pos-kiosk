@@ -5,21 +5,25 @@ img { max-width: 100%; }
 
 /* Layout: kiosk shell. Fixed dark header with a 4-step tracker, one screen visible at a time below.
    The order screen splits into a product grid (left) and an always-visible order panel (right). */
+/* DNSC palette: forest green (official school color) with the deep "English Holly" green from the
+   college's brand marks for the header. Neutrals lean slightly green so the whole kiosk reads as one family. */
 :root {
-  --bg: #edf0f4;
+  --bg: #eef3ef;
   --surface: #ffffff;
-  --surface-2: #f5f7fa;
-  --ink: #111827;
-  --muted: #556070;
-  --line: #dbe0e7;
+  --surface-2: #f3f7f4;
+  --ink: #0f2418;
+  --muted: #4f6457;
+  --line: #d3e0d6;
 
-  --accent: #c2410c;
-  --accent-press: #9a3412;
-  --accent-soft: #fff3eb;
-  --accent-line: #fed7aa;
+  --accent: #1b6e35;          /* forest green: buttons, prices, selected states */
+  --accent-press: #125426;
+  --accent-soft: #e5f2e8;
+  --accent-line: #a8d3b4;
   --on-accent: #ffffff;
+  --gold: #f2c230;            /* small highlight: quantity badges */
+  --on-gold: #2b2100;
 
-  --solid: #111827;
+  --solid: #0f2418;
   --on-solid: #ffffff;
 
   --ok: #15803d;
@@ -35,11 +39,11 @@ img { max-width: 100%; }
   --qr-ink: #1d4ed8;    --qr-soft: #dbeafe;
   --card-ink: #5b21b6;  --card-soft: #ede9fe;
 
-  --header: #111827;
+  --header: #02350d;          /* English Holly */
   --header-ink: #ffffff;
-  --header-muted: #9ca3af;
-  --header-pill: #1f2937;
-  --header-line: #374151;
+  --header-muted: #a3c4ad;
+  --header-pill: #0d4a1d;
+  --header-line: #2b6038;
 
   /* Receipt paper and QR stay light in both themes, like the real thing */
   --paper: #ffffff;
@@ -54,7 +58,7 @@ img { max-width: 100%; }
   --t-blue: #dbeafe;   --i-blue: #1d4ed8;
   --t-brown: #ece3df;  --i-brown: #5b3a2e;
 
-  --shadow: 0 1px 2px rgba(17, 24, 39, .06), 0 8px 24px rgba(17, 24, 39, .06);
+  --shadow: 0 1px 2px rgba(15, 36, 24, .06), 0 8px 24px rgba(15, 36, 24, .07);
 
   --font-ui: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
@@ -66,13 +70,14 @@ img { max-width: 100%; }
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0e131a; --surface: #171e28; --surface-2: #1d2531; --ink: #edf1f6; --muted: #9aa5b4; --line: #2a3443;
-    --accent: #e2561a; --accent-press: #c2410c; --accent-soft: #2b1a12; --accent-line: #7c2d12; --on-accent: #ffffff;
-    --solid: #edf1f6; --on-solid: #111827;
+    --bg: #0b140e; --surface: #132019; --surface-2: #19281f; --ink: #e9f2ec; --muted: #9db3a4; --line: #26382c;
+    --accent: #4cbf6b; --accent-press: #3aa35a; --accent-soft: #15301d; --accent-line: #2b6038; --on-accent: #04210c;
+    --gold: #f2c230; --on-gold: #2b2100;
+    --solid: #e9f2ec; --on-solid: #0f2418;
     --ok: #4ade80; --ok-ink: #bbf7d0; --ok-soft: #102a1b; --ok-line: #166534;
     --err: #f87171; --err-ink: #fecaca; --err-soft: #2f1414; --err-line: #7f1d1d;
     --cash-ink: #86efac; --cash-soft: #10291a; --qr-ink: #93c5fd; --qr-soft: #16263f; --card-ink: #c4b5fd; --card-soft: #261d40;
-    --header: #070a0f; --header-ink: #ffffff; --header-muted: #8b95a3; --header-pill: #151b24; --header-line: #2a3340;
+    --header: #021f08; --header-ink: #ffffff; --header-muted: #8fb39a; --header-pill: #0a3315; --header-line: #1d4a28;
     --t-orange: #3a2416; --i-orange: #fdba74; --t-yellow: #3a3013; --i-yellow: #fcd34d; --t-red: #3d1c1c; --i-red: #fca5a5;
     --t-tan: #33291f; --i-tan: #e0b98a; --t-blue: #172a45; --i-blue: #93c5fd; --t-brown: #2f2522; --i-brown: #d6b4a6;
     --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
@@ -80,13 +85,14 @@ img { max-width: 100%; }
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0e131a; --surface: #171e28; --surface-2: #1d2531; --ink: #edf1f6; --muted: #9aa5b4; --line: #2a3443;
-  --accent: #e2561a; --accent-press: #c2410c; --accent-soft: #2b1a12; --accent-line: #7c2d12; --on-accent: #ffffff;
-  --solid: #edf1f6; --on-solid: #111827;
+  --bg: #0b140e; --surface: #132019; --surface-2: #19281f; --ink: #e9f2ec; --muted: #9db3a4; --line: #26382c;
+  --accent: #4cbf6b; --accent-press: #3aa35a; --accent-soft: #15301d; --accent-line: #2b6038; --on-accent: #04210c;
+  --gold: #f2c230; --on-gold: #2b2100;
+  --solid: #e9f2ec; --on-solid: #0f2418;
   --ok: #4ade80; --ok-ink: #bbf7d0; --ok-soft: #102a1b; --ok-line: #166534;
   --err: #f87171; --err-ink: #fecaca; --err-soft: #2f1414; --err-line: #7f1d1d;
   --cash-ink: #86efac; --cash-soft: #10291a; --qr-ink: #93c5fd; --qr-soft: #16263f; --card-ink: #c4b5fd; --card-soft: #261d40;
-  --header: #070a0f; --header-ink: #ffffff; --header-muted: #8b95a3; --header-pill: #151b24; --header-line: #2a3340;
+  --header: #021f08; --header-ink: #ffffff; --header-muted: #8fb39a; --header-pill: #0a3315; --header-line: #1d4a28;
   --t-orange: #3a2416; --i-orange: #fdba74; --t-yellow: #3a3013; --i-yellow: #fcd34d; --t-red: #3d1c1c; --i-red: #fca5a5;
   --t-tan: #33291f; --i-tan: #e0b98a; --t-blue: #172a45; --i-blue: #93c5fd; --t-brown: #2f2522; --i-brown: #d6b4a6;
   --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
@@ -120,8 +126,8 @@ svg { display: block; }
 }
 .brand { display: flex; align-items: center; gap: 14px; }
 .brand-mark {
-  width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center;
-  background: var(--accent); color: var(--on-accent); font-weight: 800; font-size: 18px; letter-spacing: .02em;
+  width: 56px; height: 48px; border-radius: 12px; display: grid; place-items: center;
+  background: var(--header-ink); color: var(--header); font-weight: 800; font-size: 14px; letter-spacing: .04em;
 }
 .brand div strong { display: block; font-size: 20px; font-weight: 800; letter-spacing: -.01em; line-height: 1.2; }
 .brand div span { display: block; font-size: 13px; color: var(--header-muted); }
@@ -190,14 +196,21 @@ svg { display: block; }
 .product.in-cart { border-color: var(--accent); }
 .product-tile { aspect-ratio: 4 / 3; max-width: 100%; border-radius: 12px; display: grid; place-items: center; }
 .product-tile svg { width: 64px; height: 64px; }
+.product-tile, .thumb { position: relative; overflow: hidden; }
+.product-photo { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; opacity: 0; transition: opacity .25s; }
+.has-photo .product-photo { opacity: 1; }
+.has-photo > svg { visibility: hidden; }
+.thumb { width: 56px; height: 56px; flex: none; border-radius: 10px; display: grid; place-items: center; }
+.thumb svg { width: 28px; height: 28px; }
+.cart-line-id { display: flex; gap: 12px; align-items: center; min-width: 0; }
 .product-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
 .product-name { font-size: 19px; font-weight: 700; }
 .product-price { font-size: 19px; font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; }
 .badge {
   position: absolute; top: 8px; right: 8px; min-width: 36px; height: 36px; padding: 0 8px;
   border-radius: 999px; display: grid; place-items: center;
-  background: var(--accent); color: var(--on-accent); font-weight: 800; font-size: 17px;
-  box-shadow: 0 0 0 3px var(--surface);
+  background: var(--gold); color: var(--on-gold); font-weight: 800; font-size: 17px;
+  box-shadow: 0 0 0 3px var(--surface); z-index: 2;
 }
 .tint-orange { background: var(--t-orange); color: var(--i-orange); }
 .tint-yellow { background: var(--t-yellow); color: var(--i-yellow); }
