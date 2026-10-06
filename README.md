@@ -71,5 +71,3 @@ python -m http.server 8000
 
 Hosted on GitHub Pages from the `main` branch (Settings → Pages → Deploy from a branch → `main` / root).
 Every merge into `main` redeploys automatically.
-
-# EL jane
