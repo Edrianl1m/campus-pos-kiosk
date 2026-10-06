@@ -3,7 +3,7 @@
 Touchscreen self-service Point of Sale kiosk for a small campus food and merchandise outlet.
 IT415 – Application Development and Emerging Technologies, Practical Examination.
 
-**Live app:** https://edrianl1m.github.io/campus-pos-kiosk/
+**Live app:** https://campus-pos-kiosk.vercel.app/
 
 ## Transaction flow
 
@@ -54,6 +54,7 @@ css/style.css         Layout, touch sizing, light/dark theme
 js/app.js             Products, cart, calculations, payments, receipt
 manifest.webmanifest  PWA settings (full-screen kiosk)
 sw.js                 Offline cache
+vercel.json           Vercel hosting settings
 icons/                App icons
 ```
 
@@ -69,5 +70,11 @@ python -m http.server 8000
 
 ## Deployment
 
-Hosted on GitHub Pages from the `main` branch (Settings → Pages → Deploy from a branch → `main` / root).
-Every merge into `main` redeploys automatically.
+Hosted on [Vercel](https://vercel.com) as a static site, connected to this GitHub repository.
+
+- Framework preset: **Other** (no build step)
+- Build command: none
+- Output directory: `.` (repository root)
+- `vercel.json` stops browsers caching the service worker, so kiosks pick up new versions.
+
+Every push or merge into `main` deploys to production automatically. Every pull request gets its own preview URL so changes can be tested before merging.
