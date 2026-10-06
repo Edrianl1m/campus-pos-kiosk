@@ -1,6 +1,6 @@
 // Service worker: caches the app shell so the kiosk keeps working if the network drops.
 // Bump CACHE when you change any file so kiosks pick up the new version.
-const CACHE = 'campus-pos-kiosk-v1';
+const CACHE = 'campus-pos-kiosk-v2';
 const SHELL = ['./', 'index.html', 'css/style.css', 'js/app.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png'];
 
 self.addEventListener('install', (e) => {
