@@ -6,13 +6,14 @@
      Hard-coded product list. A small kiosk menu like this does
      not need a database; prices live in one place.
      ========================================================= */
+  // Product photos live in images/products/<id>.jpg. If a photo is missing, the card shows its icon instead.
   const PRODUCTS = [
-    { id: 'coffee',    name: 'Coffee',        price: 45, category: 'Drinks', icon: 'coffee',   tint: 'orange' },
-    { id: 'sandwich',  name: 'Sandwich',      price: 50, category: 'Food',   icon: 'sandwich', tint: 'yellow' },
-    { id: 'softdrink', name: 'Soft Drink',    price: 35, category: 'Drinks', icon: 'soda',     tint: 'red' },
-    { id: 'cookies',   name: 'Cookies',       price: 25, category: 'Snacks', icon: 'cookie',   tint: 'tan' },
-    { id: 'water',     name: 'Bottled Water', price: 20, category: 'Drinks', icon: 'bottle',   tint: 'blue' },
-    { id: 'chocolate', name: 'Chocolate',     price: 25, category: 'Snacks', icon: 'choco',    tint: 'brown' }
+    { id: 'coffee',    name: 'Coffee',        price: 45, category: 'Drinks', icon: 'coffee',   tint: 'orange', image: 'images/products/coffee.jpg' },
+    { id: 'sandwich',  name: 'Sandwich',      price: 50, category: 'Food',   icon: 'sandwich', tint: 'yellow', image: 'images/products/sandwich.jpg' },
+    { id: 'softdrink', name: 'Soft Drink',    price: 35, category: 'Drinks', icon: 'soda',     tint: 'red', image: 'images/products/softdrink.jpg' },
+    { id: 'cookies',   name: 'Cookies',       price: 25, category: 'Snacks', icon: 'cookie',   tint: 'tan', image: 'images/products/cookies.jpg' },
+    { id: 'water',     name: 'Bottled Water', price: 20, category: 'Drinks', icon: 'bottle',   tint: 'blue', image: 'images/products/water.jpg' },
+    { id: 'chocolate', name: 'Chocolate',     price: 25, category: 'Snacks', icon: 'choco',    tint: 'brown', image: 'images/products/chocolate.jpg' }
   ];
   const CATEGORIES = ['All', 'Drinks', 'Food', 'Snacks'];
   const MAX_QTY = 20;              // per item, keeps orders realistic
@@ -107,6 +108,28 @@
     backspace: s('<path d="M21 5H9l-6 7 6 7h12z"/><path d="M12.5 9.5l5 5M17.5 9.5l-5 5"/>', 2),
     receipt: s('<path d="M6 3h12v18l-2-1.5-2 1.5-2-1.5-2 1.5-2-1.5L6 21z"/><path d="M9 8h6M9 12h6M9 16h3"/>', 2)
   };
+
+  /* =========================================================
+     PRODUCT PHOTOS
+     Remembers which photos loaded so re-rendering the cart does not flash the icon again.
+     ========================================================= */
+  const photoOk = {};
+  function tileArt(p) {
+    return '<img class="product-photo" src="' + p.image + '" alt="" loading="lazy" decoding="async" data-photo="' + p.id + '">' + ICON[p.icon];
+  }
+  function markPhotos(id) {
+    document.querySelectorAll('img[data-photo="' + id + '"]').forEach((img) => img.parentElement.classList.add('has-photo'));
+  }
+  document.addEventListener('load', (e) => {
+    const img = e.target;
+    if (img.dataset && img.dataset.photo) { photoOk[img.dataset.photo] = true; markPhotos(img.dataset.photo); }
+  }, true);
+  document.addEventListener('error', (e) => {
+    const img = e.target;
+    if (img.dataset && img.dataset.photo) { photoOk[img.dataset.photo] = false; img.remove(); }   // keep the icon
+  }, true);
+  const photoClass = (p) => (photoOk[p.id] ? ' has-photo' : '');
+  const productById = (id) => PRODUCTS.find((p) => p.id === id);
 
   /* =========================================================
      DOM HELPERS
@@ -207,7 +230,7 @@
       const line = findLine(p.id);
       return '<button class="product' + (line ? ' in-cart' : '') + '" data-action="add" data-id="' + p.id + '" aria-label="Add ' + esc(p.name) + ', ' + money(p.price) + (line ? ', ' + line.qty + ' in order' : '') + '">' +
         (line ? '<span class="badge" aria-hidden="true">' + line.qty + '</span>' : '') +
-        '<span class="product-tile tint-' + p.tint + '">' + ICON[p.icon] + '</span>' +
+        '<span class="product-tile tint-' + p.tint + photoClass(p) + '">' + tileArt(p) + '</span>' +
         '<span class="product-meta"><span class="product-name">' + esc(p.name) + '</span><span class="product-price">' + money(p.price) + '</span></span>' +
         '</button>';
     }).join('');
@@ -224,7 +247,9 @@
     }
     $('cart-list').innerHTML = state.cart.map((l) =>
       '<div class="cart-line">' +
-        '<div class="cart-line-top"><div><div class="cart-line-name">' + esc(l.name) + '</div><div class="cart-line-each">' + money(l.price) + ' each</div></div>' +
+        '<div class="cart-line-top"><div class="cart-line-id">' +
+          '<span class="thumb tint-' + productById(l.id).tint + photoClass(productById(l.id)) + '" aria-hidden="true">' + tileArt(productById(l.id)) + '</span>' +
+          '<div><div class="cart-line-name">' + esc(l.name) + '</div><div class="cart-line-each">' + money(l.price) + ' each</div></div></div>' +
         '<button class="remove-btn" data-action="remove" data-id="' + l.id + '" aria-label="Remove ' + esc(l.name) + '">' + ICON.trash + '</button></div>' +
         '<div class="cart-line-bottom"><div class="stepper">' +
           '<button class="qty-btn" data-action="dec" data-id="' + l.id + '" aria-label="Decrease ' + esc(l.name) + '">' + ICON.minus + '</button>' +
