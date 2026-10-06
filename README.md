@@ -20,23 +20,23 @@ IT415 – Application Development and Emerging Technologies, Practical Examinati
 
 ## Computation rules
 
-| Value | Formula |
-|---|---|
-| Subtotal | Unit price × Quantity |
-| Total | Sum of all subtotals |
-| Change (cash) | Amount paid − Total |
-| QR / Card | Amount paid = Total, change = ₱0.00 |
+| Value         | Formula                             |
+| ------------- | ----------------------------------- |
+| Subtotal      | Unit price × Quantity               |
+| Total         | Sum of all subtotals                |
+| Change (cash) | Amount paid − Total                 |
+| QR / Card     | Amount paid = Total, change = ₱0.00 |
 
 ## Products
 
-| Product | Price |
-|---|---|
-| Coffee | ₱45.00 |
-| Sandwich | ₱50.00 |
-| Soft Drink | ₱35.00 |
-| Cookies | ₱25.00 |
+| Product       | Price  |
+| ------------- | ------ |
+| Coffee        | ₱45.00 |
+| Sandwich      | ₱50.00 |
+| Soft Drink    | ₱35.00 |
+| Cookies       | ₱25.00 |
 | Bottled Water | ₱20.00 |
-| Chocolate | ₱25.00 |
+| Chocolate     | ₱25.00 |
 
 ## Technology and data storage
 
@@ -71,3 +71,5 @@ python -m http.server 8000
 
 Hosted on GitHub Pages from the `main` branch (Settings → Pages → Deploy from a branch → `main` / root).
 Every merge into `main` redeploys automatically.
+
+# EL jane
