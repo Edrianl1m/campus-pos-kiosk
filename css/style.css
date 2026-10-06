@@ -199,6 +199,10 @@ svg { display: block; }
 .product-tile, .thumb { position: relative; overflow: hidden; }
 .product-photo { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; opacity: 0; transition: opacity .25s; }
 .has-photo .product-photo { opacity: 1; }
+/* Photos are product cutouts on white, so show the whole item on a white tile instead of cropping it */
+.product-tile.has-photo, .thumb.has-photo { background: #ffffff; }
+.product-tile .product-photo { object-fit: contain; padding: 8px; }
+.thumb .product-photo { object-fit: contain; padding: 3px; }
 .has-photo > svg { visibility: hidden; }
 .thumb { width: 56px; height: 56px; flex: none; border-radius: 10px; display: grid; place-items: center; }
 .thumb svg { width: 28px; height: 28px; }

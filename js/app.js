@@ -6,14 +6,14 @@
      Hard-coded product list. A small kiosk menu like this does
      not need a database; prices live in one place.
      ========================================================= */
-  // Product photos live in images/products/<id>.jpg. If a photo is missing, the card shows its icon instead.
+  // Product photos live in images/products/. If a photo is missing, the card shows its icon instead.
   const PRODUCTS = [
-    { id: 'coffee',    name: 'Coffee',        price: 45, category: 'Drinks', icon: 'coffee',   tint: 'orange', image: 'images/products/coffee.jpg' },
-    { id: 'sandwich',  name: 'Sandwich',      price: 50, category: 'Food',   icon: 'sandwich', tint: 'yellow', image: 'images/products/sandwich.jpg' },
-    { id: 'softdrink', name: 'Soft Drink',    price: 35, category: 'Drinks', icon: 'soda',     tint: 'red', image: 'images/products/softdrink.jpg' },
-    { id: 'cookies',   name: 'Cookies',       price: 25, category: 'Snacks', icon: 'cookie',   tint: 'tan', image: 'images/products/cookies.jpg' },
-    { id: 'water',     name: 'Bottled Water', price: 20, category: 'Drinks', icon: 'bottle',   tint: 'blue', image: 'images/products/water.jpg' },
-    { id: 'chocolate', name: 'Chocolate',     price: 25, category: 'Snacks', icon: 'choco',    tint: 'brown', image: 'images/products/chocolate.jpg' }
+    { id: 'coffee',    name: 'Coffee',        price: 45, category: 'Drinks', icon: 'coffee',   tint: 'orange', image: 'images/products/coffee.png' },
+    { id: 'sandwich',  name: 'Sandwich',      price: 50, category: 'Food',   icon: 'sandwich', tint: 'yellow', image: 'images/products/sandwich.png' },
+    { id: 'softdrink', name: 'Soft Drink',    price: 35, category: 'Drinks', icon: 'soda',     tint: 'red', image: 'images/products/soda.png' },
+    { id: 'cookies',   name: 'Cookies',       price: 25, category: 'Snacks', icon: 'cookie',   tint: 'tan', image: 'images/products/cookie.png' },
+    { id: 'water',     name: 'Bottled Water', price: 20, category: 'Drinks', icon: 'bottle',   tint: 'blue', image: 'images/products/water.png' },
+    { id: 'chocolate', name: 'Chocolate',     price: 25, category: 'Snacks', icon: 'choco',    tint: 'brown', image: 'images/products/chocolate.png' }
   ];
   const CATEGORIES = ['All', 'Drinks', 'Food', 'Snacks'];
   const MAX_QTY = 20;              // per item, keeps orders realistic
